@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -31,16 +32,26 @@ public class ProductController {
     public ResponseEntity<ProductListDTO> getProductsList(Pageable pageable) {
         final var pageProductList = productService.getProductList(pageable);
         var meta = new Meta(
-            pageProductList.getNumber() + 1,
-            pageProductList.getSize(),
-            pageProductList.getTotalPages(),
-            pageProductList.getTotalElements()
+                pageProductList.getNumber() + 1,
+                pageProductList.getSize(),
+                pageProductList.getTotalPages(),
+                pageProductList.getTotalElements()
         );
 
         final var productList = new ProductListDTO(
                 UUID.randomUUID().toString(),
                 LocalDateTime.now().toString(),
                 "Products#List", meta, pageProductList.getContent());
-    return ResponseEntity.ok(productList);
+        return ResponseEntity.ok(productList);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> getProductsDetailById(@PathVariable("id") String id) {
+        productService.getProductDetailById(id);
+        Optional<ProductDTO> parkingSpotModelOptional = productService.getProductDetailById(id);
+        return parkingSpotModelOptional.<ResponseEntity<Object>>map(parkingSpotModel
+                -> ResponseEntity.status(HttpStatus.OK).body(parkingSpotModel)).orElseGet(()
+                -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found."));
     }
 }

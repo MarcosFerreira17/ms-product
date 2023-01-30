@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service @Slf4j
@@ -41,5 +42,9 @@ public class ProductService {
         MDC.put(CORRELATION_ID, UUID.randomUUID().toString());
         log.info(REQUEST);
         return repository.getProductList(pageable).orElseThrow();
+    }
+
+    public Optional<ProductDTO> getProductDetailById(String id){
+        return repository.getProductDetailById(id);
     }
 }
