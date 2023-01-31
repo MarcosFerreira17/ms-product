@@ -1,4 +1,4 @@
-# **Products API**
+# **Products MS API**
 
 A RESTful API for retrieving and managing product information.
 
