@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Products API", version = "1.0", description = "Products Information"))
-
 public class ProductServiceApplication {
 
 	public static void main(String[] args) {
