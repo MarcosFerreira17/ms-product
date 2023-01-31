@@ -8,6 +8,6 @@ public class ProductNotFoundException extends Exception{
     private static final long serialVersionUID = 9009500269607484034L;
 
     public ProductNotFoundException(String idProduct){
-        super(String.format("Movimento com id: {} não foi encontrado.", idProduct));
+        super(String.format("Product id: {} not found.", idProduct));
     }
 }
