@@ -34,10 +34,8 @@ public class ProductService {
                         .name(productDTO.getName())
                                 .description(productDTO.getDescription())
                                         .price(productDTO.getPrice())
-                .status(productDTO.getStatus())
-                                                        .build();
+                .status(productDTO.getStatus()).build();
         repository.save(product);
-        log.info("Product {} is saved", product.getId());
     }
 
     public Page<ProductDTO> getProductList(Pageable pageable){

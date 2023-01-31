@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mnia.productservice.api.v1.controllers.product.ProductController;
 import com.mnia.productservice.domain.dtos.product.ProductDTO;
 import com.mnia.productservice.domain.dtos.product.ProductListDTO;
-import com.mnia.productservice.domain.entities.Product;
 import com.mnia.productservice.domain.services.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,20 +19,17 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductControllerTest {
+class ProductControllerTest {
     private MockMvc mockMvc;
     private static final Pageable pageable = PageRequest.of(0,10);
     @Mock
@@ -49,7 +45,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testCreateProduct() throws Exception {
+    void shouldCreateANewProduct() throws Exception {
         ProductDTO productDTO = ProductDTO.builder().build();
         mockMvc.perform(post("/api/v1/product")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -59,7 +55,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    void getProductsList() {
+    void shouldReturnProductsList() {
         List<ProductDTO> productDTOS = Arrays.asList(new ProductDTO("product 1", "product 1 description", BigDecimal.valueOf(10), true),
                 new ProductDTO("product 2", "product 2 description", BigDecimal.valueOf(10), true));
         Page<ProductDTO> pageProductList = new PageImpl<>(productDTOS);
